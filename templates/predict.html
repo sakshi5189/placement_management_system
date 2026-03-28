@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Prediction</h3>
+
+<table class="table table-hover shadow">
+<tr><th>Name</th><th>Status</th></tr>
+
+{% for r in results %}
+<tr>
+<td>{{ r.name }}</td>
+<td>
+{% if r.chance=="High" %}
+<span class="badge bg-success">High</span>
+{% elif r.chance=="Medium" %}
+<span class="badge bg-warning">Medium</span>
+{% else %}
+<span class="badge bg-danger">Low</span>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

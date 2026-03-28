@@ -1,0 +1,18 @@
+<h3>Skill Distribution</h3>
+
+<canvas id="chart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+new Chart(document.getElementById("chart"), {
+type: 'bar',
+data: {
+labels: {{ labels | tojson }},
+datasets: [{
+label: 'Students',
+data: {{ values | tojson }}
+}]
+}
+});
+</script>

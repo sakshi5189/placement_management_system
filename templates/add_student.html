@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Add Student</h3>
+
+<div class="card p-4 shadow" style="max-width:500px;">
+<form method="POST">
+<input class="form-control mb-3" name="name" placeholder="Name">
+<input class="form-control mb-3" name="cgpa" placeholder="CGPA">
+<input class="form-control mb-3" name="skill" placeholder="Skill">
+<button class="btn btn-dark w-100">Submit</button>
+</form>
+</div>
+
+{% endblock %}

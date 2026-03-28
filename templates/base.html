@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body { margin:0; }
+.sidebar {
+height:100vh; width:220px; position:fixed;
+background:#111; color:white; padding-top:20px;
+}
+.sidebar a {
+display:block; color:white; padding:12px; text-decoration:none;
+}
+.sidebar a:hover { background:#575757; }
+.main {
+margin-left:220px; padding:20px; background:#f4f6f9; min-height:100vh;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h4 class="text-center">Placement</h4>
+<a href="/">Dashboard</a>
+<a href="/add_student">Add Student</a>
+<a href="/add_company">Add Company</a>
+<a href="/eligible">Eligible</a>
+<a href="/predict">Prediction</a>
+<a href="/logout">Logout</a>
+</div>
+
+<div class="main">
+{% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

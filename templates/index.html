@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+<div class="card p-3 shadow">
+<h5>Total Students</h5>
+<p>Manage student data</p>
+<a href="/add_student" class="btn btn-primary">Add Student</a>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-3 shadow">
+<h5>Companies</h5>
+<p>Manage companies</p>
+<a href="/add_company" class="btn btn-success">Add Company</a>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-3 shadow">
+<h5>Placement Data</h5>
+<p>View results</p>
+<a href="/eligible" class="btn btn-warning">Check Eligible</a>
+</div>
+</div>
+
+</div>
+
+{% endblock %}

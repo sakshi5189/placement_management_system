@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Eligible Students</h3>
+
+{% for item in data %}
+<div class="card p-3 mb-3 shadow">
+<h5>{{ item.company }}</h5>
+
+{% for s in item.students %}
+<span class="badge bg-dark">
+{{ s.name }}
+<a href="/delete_student/{{ s.id }}" style="color:red;"> ❌</a>
+</span>
+{% endfor %}
+
+</div>
+{% endfor %}
+
+{% endblock %}

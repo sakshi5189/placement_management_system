@@ -1,0 +1,4 @@
+python db.py
+python app.py
+http://127.0.0.1:5000
+PHP my admin http://localhost/phpmyadmin
