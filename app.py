@@ -13,12 +13,15 @@ def register():
         email = request.form['email']
         password = request.form['password']
 
-        cursor.execute(
-            "INSERT INTO users (name,email,password) VALUES (%s,%s,%s)",
-            (name, email, password)
-        )
-        conn.commit()
-        return redirect('/login')
+        try:
+            cursor.execute(
+                "INSERT INTO users (name,email,password) VALUES (?,?,?)",
+                (name, email, password)
+            )
+            conn.commit()
+            return redirect('/login')
+        except:
+            return "Email already exists!"
 
     return render_template('register.html')
 
@@ -31,13 +34,13 @@ def login():
         password = request.form['password'].strip()
 
         cursor.execute(
-            "SELECT * FROM users WHERE email=%s AND password=%s",
+            "SELECT * FROM users WHERE email=? AND password=?",
             (email, password)
         )
         user = cursor.fetchone()
 
         if user:
-            session['user'] = user['email']
+            session['user'] = user[2]
             return redirect('/')
         else:
             return "Invalid Login"
@@ -72,7 +75,7 @@ def add_student():
         skill = request.form['skill']
 
         cursor.execute(
-            "INSERT INTO students (name,cgpa,skill) VALUES (%s,%s,%s)",
+            "INSERT INTO students (name,cgpa,skill) VALUES (?,?,?)",
             (name, cgpa, skill)
         )
         conn.commit()
@@ -93,7 +96,7 @@ def add_company():
         skill = request.form['skill']
 
         cursor.execute(
-            "INSERT INTO companies (name,min_cgpa,skill) VALUES (%s,%s,%s)",
+            "INSERT INTO companies (name,min_cgpa,skill) VALUES (?,?,?)",
             (name, cgpa, skill)
         )
         conn.commit()
@@ -114,12 +117,12 @@ def eligible():
     data = []
     for c in companies:
         cursor.execute(
-            "SELECT * FROM students WHERE cgpa >= %s AND skill=%s",
-            (c['min_cgpa'], c['skill'])
+            "SELECT * FROM students WHERE cgpa >= ? AND skill=?",
+            (c[2], c[3])
         )
         students = cursor.fetchall()
 
-        data.append({'company': c['name'], 'students': students})
+        data.append({'company': c[1], 'students': students})
 
     return render_template('eligible.html', data=data)
 
@@ -135,16 +138,16 @@ def predict():
 
     results = []
     for s in students:
-        if s['cgpa'] > 8:
+        if s[2] > 8:
             chance = "High"
-        elif s['cgpa'] >= 6:
+        elif s[2] >= 6:
             chance = "Medium"
         else:
             chance = "Low"
 
         results.append({
-            'id': s['id'],
-            'name': s['name'],
+            'id': s[0],
+            'name': s[1],
             'chance': chance
         })
 
@@ -154,10 +157,10 @@ def predict():
 # DELETE STUDENT
 @app.route('/delete_student/<int:id>')
 def delete_student(id):
-    cursor.execute("DELETE FROM students WHERE id=%s", (id,))
+    cursor.execute("DELETE FROM students WHERE id=?", (id,))
     conn.commit()
     return redirect('/eligible')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

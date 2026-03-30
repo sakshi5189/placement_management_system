@@ -9,8 +9,8 @@
 
 {% for s in item.students %}
 <span class="badge bg-dark">
-{{ s.name }}
-<a href="/delete_student/{{ s.id }}" style="color:red;"> ❌</a>
+{{ s[1] }}
+<a href="/delete_student/{{ s[0] }}" style="color:red;"> ❌</a>
 </span>
 {% endfor %}
 
